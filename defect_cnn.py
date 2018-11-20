@@ -7,6 +7,8 @@ from keras import backend as K
 from keras import regularizers
 from keras import layers
 
+from time import time
+
 
 # dimensions of our images.
 img_width, img_height = 210, 461
@@ -15,7 +17,7 @@ validation_data_dir = 'data/validation'
 nb_train_samples = 5480
 nb_validation_samples = 520
 
-epochs = 2
+epochs = 50
 lamda = 5E-5
 batch_size = 16
 
@@ -64,6 +66,8 @@ model.add(Activation('relu'))
 # Pooling layer: subsampling 2 x 2, stride 2
 model.add(MaxPooling2D(pool_size=(2, 2), strides=2))
 
+model.add(Flatten())
+
 # Fully connected layer: 1024 Activation Units
 model.add(layers.Dense(units=1024, activation='relu'))
 
@@ -79,6 +83,7 @@ model.add(layers.Dropout(0.5))
 # Add fully connected layer with a sigmoid activation function
 model.add(layers.Dense(units=1, activation='sigmoid'))
 
+print(model.summary())
 
 ######DEFECT MODEL END######
 
